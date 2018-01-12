@@ -15,8 +15,16 @@ mongoose.connect(keys.mongoURI,{useMongoClient:true})
 require('./config/passport')(passport);
 const app = express(),
 auth = require('./route/auth');
+
+// handlebars middlewares
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+  }));
+app.set('view engine', 'handlebars');
+
+// all routes here
 app.get('/',(req,res) => {
-	res.send(45 == 45 ? 'condition is true' : 'condition is not true');
+	res.render('index');
 })
 app.get('/about',(req,res) => {
     res.send('well! we are on the about page');
